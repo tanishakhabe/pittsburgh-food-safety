@@ -12,7 +12,6 @@ City of Pittsburgh neighborhoods. **The whole pipeline is in one notebook:
 | [Food facility inspections 2014–2025](https://data.wprdc.org/dataset/allegheny-county-restaurant-food-facility-inspection-violations/resource/4ea730d8-2bf9-4783-b0a5-b41ed687097e) | Allegheny County Health Dept (WPRDC) | CSV | 124,674 | Postgres `raw.inspections_2014_2025` |
 | [Inspection violations 2014–2025](https://data.wprdc.org/dataset/allegheny-county-restaurant-food-facility-inspection-violations/resource/1a1329e2-418c-4bd3-af2c-cc334e7559af) | Allegheny County Health Dept (WPRDC) | CSV | 405,474 | Postgres `raw.violations_2014_2025` |
 | [Geocoded food facilities](https://data.wprdc.org/dataset/allegheny-county-restaurant-food-facility-inspection-violations/resource/112a3821-334d-4f3f-ab40-4de1220b1a0a) | Allegheny County Health Dept (WPRDC) | CSV | 32,245 | Postgres `raw.geocoded_facilities` |
-| [Food facility inspections 2025–present](https://data.wprdc.org/dataset/allegheny-county-restaurant-food-facility-inspection-violations/resource/1c9cf8d8-f3db-4364-b925-d7078c2fb02f) | Allegheny County Health Dept (WPRDC) | CSV | 9,501 | Postgres `raw.inspections_2025_present` |
 | [Neighborhood boundaries](https://data.wprdc.org/dataset/neighborhoods2/resource/4af8e160-57e9-4ebf-a501-76ca1b42fc99) | City of Pittsburgh (WPRDC) | GeoJSON | 90 features | MongoDB `group7.neighborhoods_geojson` |
 
 How they join:
@@ -72,4 +71,4 @@ Because each run rebuilds shared tables, **post in the group chat before running
 ## Known source quirks
 
 - WPRDC CSV dumps end the header line with CRLF but data rows with LF. The loader reads the header itself so `COPY` doesn't reject the file.
-- The legacy (2014–Jul 2025) and new (Aug 2025+) inspection systems use different IDs. The new-system file can only be linked by facility name and address.
+- Violations data ends 31 Jul 2025. The WPRDC [2025–present inspections](https://data.wprdc.org/dataset/allegheny-county-restaurant-food-facility-inspection-violations/resource/1c9cf8d8-f3db-4364-b925-d7078c2fb02f) file starts Aug 2025, has no violations and uses new IDs that don't match the legacy facility IDs, so it is not used.
